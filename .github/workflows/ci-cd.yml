@@ -19,11 +19,11 @@ jobs:
 
             - name: install dependencies
               run: |
-               cd dev
+               cd dev-app
                npm install
             - name: Run Test
               run: |
-               cd dev
+               cd dev-app
                npm run test
 
             - name: Sonarqube Scan
