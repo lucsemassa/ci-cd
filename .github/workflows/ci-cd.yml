@@ -32,5 +32,7 @@ jobs:
                 projectBaseDir: dev
                 args: >
                  - Dsonar.projectKey=dev-app
-                 - Dsonar.host.url= ${{secrets.SONARQUBE_HOST_URL}}
+                 - Dsonar.host.url=${{secrets.SONARQUBE_HOST_URL}}
                  - Dsonar.login=${{secrets.SONARQUBE_TOKEN}}
+              env:
+                SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
