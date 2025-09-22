@@ -30,9 +30,6 @@ jobs:
               uses: SonarSource/sonarqube-scan-action@v2
               with:
                 projectBaseDir: dev
-                args: >
-                 - Dsonar.projectKey=dev-app
-                 - Dsonar.host.url=${{secrets.SONARQUBE_HOST_URL}}
-                 - Dsonar.login=${{secrets.SONARQUBE_TOKEN}}
+                args: "-Dsonar.projectKey=dev-app -Dsonar.host.url=${{ secrets.SONARQUBE_HOST_URL }} -Dsonar.login=${{ secrets.SONARQUBE_TOKEN }}"
               env:
                 SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
