@@ -70,7 +70,7 @@ jobs:
                rsync -av --delete prod-app /opt/ci-cd-example/apps/prod-app
             - name: Redeploy prod app
               run: |
-               docker-compose -f /opt/ci-cd-example/docker-compose.yml stop prod-app 
-               docker-compose -f /opt/ci-cd-example/docker-compose.yml up -d prod-app
+               sudo docker-compose -f /opt/ci-cd-example/docker-compose.yml stop prod-app 
+               sudo docker-compose -f /opt/ci-cd-example/docker-compose.yml up -d prod-app
 
         
