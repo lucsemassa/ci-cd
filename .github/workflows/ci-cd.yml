@@ -37,7 +37,7 @@ jobs:
     deploy-dev:
         name: Deploy on dev
         if: github.ref == 'refs/heads/dev'
-        runs-on: self-hosted
+        runs-on: [self-hosted, DevSecOps]
         needs: [build-test-analyze]
         environment:
             name: dev
