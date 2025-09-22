@@ -1,0 +1,36 @@
+name: CI-CD
+on: 
+    push:
+        branches:
+            - main
+            - dev
+    pull_request:
+
+jobs:
+    build-test-analyze:
+        name: Build, Test, Analyze
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: actions/setup-node@v4
+              with:
+                node-version: 18
+
+            - name: install dependencies
+              run: |
+               cd dev
+               npm install
+            - name: Run Test
+              run: |
+               cd dev
+               npm run test
+
+            - name: Sonarqube Scan
+              uses: SonarSource/sonarqube-scan-action@v2
+              with:
+                projectBaseDir: dev
+                args: >
+                 - Dsonar.projectKey=dev-app
+                 - Dsonar.host.url= ${{secrets.SONARQUBE_HOST_URL}}
+                 - Dsonar.login=${{secrets.SONARQUBE_TOKEN}}
