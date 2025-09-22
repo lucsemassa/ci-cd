@@ -33,3 +33,39 @@ jobs:
                 args: "-Dsonar.projectKey=dev-app -Dsonar.host.url=${{ secrets.SONARQUBE_HOST_URL }} -Dsonar.login=${{ secrets.SONARQUBE_TOKEN }}"
               env:
                 SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
+    
+    deploy-dev:
+        name: Deploy on dev
+        if: github.ref == 'refs/heads/dev'
+        runs-on: self-hosted
+        needs: [build-test-analyze]
+        environment:
+            name: dev
+        steps:
+            - uses: actions/checkout@v4
+            - name: Move Code into correct folder
+              run: | 
+               rsync -av --delete dev-app /opt/ci-cd-example/apps/dev-app
+            - name: Redeploy dev app
+              run: |
+               docker-compose -f /opt/ci-cd-example/docker-compose.yml stop dev-app 
+               docker-compose -f /opt/ci-cd-example/docker-compose.yml up -d dev-app
+    
+    deploy-prod:
+        name: Deploy on prod
+        if: github.ref == 'refs/heads/main'
+        runs-on: self-hosted
+        needs: [build-test-analyze]
+        environment:
+            name: prod
+        steps:
+            - uses: actions/checkout@v4
+            - name: Move Code into correct folder
+              run: | 
+               rsync -av --delete prod-app /opt/ci-cd-example/apps/prod-app
+            - name: Redeploy prod app
+              run: |
+               docker-compose -f /opt/ci-cd-example/docker-compose.yml stop prod-app 
+               docker-compose -f /opt/ci-cd-example/docker-compose.yml up -d prod-app
+
+        
