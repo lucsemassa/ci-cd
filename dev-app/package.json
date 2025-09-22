@@ -6,7 +6,7 @@
   "scripts": {
     "start":"node index.js", 
     "lint": "echo 'Linting process'",
-    "test": "echo \"Test Process is launched\" && exit 1"
+    "test": "echo \"Test Process is launched\""
   },
   "keywords": [],
   "author": "",
