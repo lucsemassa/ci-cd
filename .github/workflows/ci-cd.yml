@@ -48,8 +48,8 @@ jobs:
                rsync -av --delete dev-app /opt/ci-cd-example/apps/dev-app
             - name: Redeploy dev app
               run: |
-               docker-compose -f /opt/ci-cd-example/docker-compose.yml stop dev-app 
-               docker-compose -f /opt/ci-cd-example/docker-compose.yml up -d dev-app
+               sudo docker-compose -f /opt/ci-cd-example/docker-compose.yml stop dev-app 
+               sudo docker-compose -f /opt/ci-cd-example/docker-compose.yml up -d dev-app
     
     deploy-prod:
         name: Deploy on prod
@@ -59,11 +59,11 @@ jobs:
         environment:
             name: prod
         steps:
-            - name: Check Docker access
-              run: |
-                whoami
-                groups
-                docker ps
+            # - name: Check Docker access
+            #   run: |
+            #     whoami
+            #     groups
+            #     docker ps
             - uses: actions/checkout@v4
             - name: Move Code into correct folder
               run: | 
