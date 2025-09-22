@@ -59,6 +59,11 @@ jobs:
         environment:
             name: prod
         steps:
+            - name: Check Docker access
+              run: |
+                whoami
+                groups
+                docker ps
             - uses: actions/checkout@v4
             - name: Move Code into correct folder
               run: | 
